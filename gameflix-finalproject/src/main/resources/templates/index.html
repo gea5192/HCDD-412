@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GameFlix Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #fff;
+            text-align: center;
+            margin-top: 100px;
+        }
+        h1 {
+            color: #34d2eb;
+        }
+        form {
+            background-color: #b8dde0;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 20px auto;
+
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background-color: #34d2eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #34d2eb;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to GameFlix</h1>
+<p>Login or Register below to start renting games!</p>
+
+<form id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username" required><br>
+    <input type="password" id="loginPassword" placeholder="Password" required><br>
+    <button type="button" onclick="loginUser()">Login</button>
+</form>
+
+<form id="registerForm">
+    <h2>Register</h2>
+    <input type="text" id="regUsername" placeholder="Username" required><br>
+    <input type="password" id="regPassword" placeholder="Password" required><br>
+    <button type="button" onclick="registerUser()">Register</button>
+</form>
+
+<script>
+    async function registerUser() {
+        const username = document.getElementById('regUsername').value;
+        const password = document.getElementById('regPassword').value;
+
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+    }
+
+    async function loginUser() {
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+    }
+</script>
+</body>
+</html>
